@@ -1,4 +1,4 @@
-from app.udaconnect.models import Connection, Location, Person
+from app.udaconnect.models import Location, Person #Connection
 from geoalchemy2.types import Geometry as GeometryType
 from marshmallow import Schema, fields
 from marshmallow_sqlalchemy.convert import ModelConverter as BaseModelConverter
@@ -25,6 +25,6 @@ class PersonSchema(Schema):
         model = Person
 
 
-class ConnectionSchema(Schema):
-    location = fields.Nested(LocationSchema)
-    person = fields.Nested(PersonSchema)
+#class ConnectionSchema(Schema):
+#    location = fields.Nested(LocationSchema)
+#    person = fields.Nested(PersonSchema)
