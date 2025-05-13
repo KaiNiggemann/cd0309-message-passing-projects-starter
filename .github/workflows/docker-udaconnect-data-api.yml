@@ -1,4 +1,4 @@
-name: Udaconnect app api - Package with Docker
+name: Udaconnect data api - Package with Docker
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
