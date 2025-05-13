@@ -9,4 +9,4 @@ RUN pip install -r requirements.txt
 EXPOSE 5001
 
 COPY . .
-CMD ["python", "wsgi.py"]
+CMD ["flask", "--app", "wsgi", "run", "--host", "0.0.0.0"]
