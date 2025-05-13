@@ -1,6 +1,6 @@
 FROM python:3.9-alpine
 
-WORKDIR .
+WORKDIR ./modules/data_api
 
 RUN apk add --no-cache gcc musl-dev linux-headers geos libc-dev postgresql-dev
 COPY requirements.txt requirements.txt
