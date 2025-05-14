@@ -1,5 +1,5 @@
 import json
-from services import retrieve_orders, create_order
+from services import LocationService, PersonService #ConnectionService
 
 from kafka import KafkaConsumer
 
