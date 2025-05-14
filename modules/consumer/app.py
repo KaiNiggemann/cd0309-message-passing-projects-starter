@@ -10,7 +10,7 @@ def consumer1():
   consumer = KafkaConsumer('locations')
   for message in consumer:
     try:
-      print ("Location:" + str(json.loads(message.value.decode('ascii')) ))
+      print ("Location - processing message: " + str(json.loads(message.value.decode('ascii')) ))
     except:
       print("This seems not a valid JSON format with double quotes")
 
@@ -19,7 +19,7 @@ def consumer2():
   consumer = KafkaConsumer('persons')
   for message in consumer:
     try:
-      print ("Person:" + str( json.loads(message.value.decode('ascii')) ))
+      print ("Person - processing message: " + str( json.loads(message.value.decode('ascii')) ))
     except:
       print("This seems not a valid JSON format with double quotes")
 
