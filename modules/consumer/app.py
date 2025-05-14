@@ -16,7 +16,7 @@ def consumer1():
 
 def consumer2():
   print("Start consuming 'persons'...")
-  consumer = KafkaConsumer('locations')
+  consumer = KafkaConsumer('persons')
   for message in consumer:
     try:
       print ("Person:" + str( json.loads(message.value.decode('ascii')) ))
