@@ -27,8 +27,10 @@ def consumer2(self):
 if __name__ == '__main__':
     consumer1_thread = threading.Thread(target=consumer1, args=())
     consumer2_thread = threading.Thread(target=consumer2, args=())
-    consumer1_thread.daemon = True
-    consumer2_thread.daemon = True
+    #consumer1_thread.daemon = True
+    #consumer2_thread.daemon = True
     consumer1_thread.start()
     consumer2_thread.start()
+    #consumer1_thread.join()
+    #consumer2_thread.join()
 
