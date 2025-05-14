@@ -14,7 +14,7 @@ def consumer1(self):
     except:
       print("This seems not a valid JSON format with double quotes")
 
-def cons2(self):
+def consumer2(self):
   print("Start consuming 'persons'...")
   consumer = KafkaConsumer('locations')
   for message in consumer:
