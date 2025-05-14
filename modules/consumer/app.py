@@ -30,7 +30,7 @@ def consumer2():
       print("This seems not a valid JSON format with double quotes")
       
     print ("Person - processing message: " + str(content))
-    Person = PersonService.create(payload)
+    Person = PersonService.create(content)
     print (Person)
 
   return
