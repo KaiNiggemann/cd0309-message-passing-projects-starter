@@ -4,10 +4,6 @@ metadata:
   labels:
     service: udaconnect-consumer-service
   name: udaconnect-consumer-service
-spec:
-  selector:
-    service: udaconnect-consumer-service
-  type: NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment
