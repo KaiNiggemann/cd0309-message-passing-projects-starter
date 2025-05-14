@@ -10,7 +10,10 @@ def consumer1():
   consumer = KafkaConsumer('locations')
   for message in consumer:
     try:
-      print ("Location - processing message: " + str(json.loads(message.value.decode('ascii')) ))
+      content = json.loads(message.value.decode('ascii'))
+      print ("Location - processing message: " + str(content))
+      Location = LocationService.create(content)
+      print (Location)
     except:
       print("This seems not a valid JSON format with double quotes")
 
