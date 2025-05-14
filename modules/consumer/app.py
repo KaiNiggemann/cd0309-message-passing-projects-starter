@@ -19,7 +19,6 @@ def consumer1():
     print ("Location - processing message: " + str(content))
     Location = LocationService.create(content)
     print (Location)
-    
   return
   
 def consumer2():
@@ -34,16 +33,19 @@ def consumer2():
     print ("Person - processing message: " + str(content))
     Person = PersonService.create(content)
     print (Person)
-
   return
-
 
 app = create_app(os.getenv("FLASK_ENV") or "test")
 
+def flask_app():
+  app.run(debug=True)
+  return
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    consumer0_thread = threading.Thread(target=flask_app)
     consumer1_thread = threading.Thread(target=consumer1)
     consumer2_thread = threading.Thread(target=consumer2)
+    consumer0_thread.start()
     consumer1_thread.start()
     consumer2_thread.start()
     #consumer1_thread.join()
