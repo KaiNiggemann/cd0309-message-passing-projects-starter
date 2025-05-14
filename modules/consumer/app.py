@@ -1,8 +1,10 @@
 import json
 import threading
+import os
 from services import LocationService, PersonService #ConnectionService
 import asyncio
 from kafka import KafkaConsumer
+from app import create_app
 
 
 def consumer1():
@@ -36,8 +38,10 @@ def consumer2():
   return
 
 
+app = create_app(os.getenv("FLASK_ENV") or "test")
 
 if __name__ == '__main__':
+    app.run(debug=True)
     consumer1_thread = threading.Thread(target=consumer1)
     consumer2_thread = threading.Thread(target=consumer2)
     consumer1_thread.start()
