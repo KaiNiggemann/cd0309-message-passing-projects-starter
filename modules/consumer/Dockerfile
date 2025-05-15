@@ -6,7 +6,7 @@ WORKDIR .
 #RUN apk upgrade --update-cache --available
 #RUN apk add --no-cache librdkafka-dev python3-dev
 
-RUN apk add --no-cache gcc musl-dev linux-headers geos libc-dev postgresql-dev
+RUN apk add --no-cache gcc musl-dev linux-headers geos libc-dev postgresql-dev librdkafka-dev
 #RUN export C_INCLUDE_PATH=/usr/local/Cellar/librdkafka/2.2.0/include
 #RUN export LIBRARY_PATH=/usr/local/Cellar/librdkafka/2.2.0/lib
 COPY requirements.txt requirements.txt
