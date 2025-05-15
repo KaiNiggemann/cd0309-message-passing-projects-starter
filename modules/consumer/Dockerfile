@@ -11,6 +11,7 @@ RUN export C_INCLUDE_PATH=/usr/local/Cellar/librdkafka/2.2.0/include
 RUN export LIBRARY_PATH=/usr/local/Cellar/librdkafka/2.2.0/lib
 COPY requirements.txt requirements.txt
 RUN pip install --upgrade pip
+RUN export PIP_PREFER_BINARY=1
 #RUN pip3 install --prefer-binary confluent-kafka==2.2.0
 RUN pip install -r requirements.txt
 
