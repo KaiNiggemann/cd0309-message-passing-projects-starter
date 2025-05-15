@@ -1,5 +1,6 @@
+confluent-kafka=2.8.0
 flask-kafka
-kafka-python==2.2.7
+#kafka-python==2.2.7
 aniso8601==7.0.0
 attrs==19.1.0
 Click==7.0
