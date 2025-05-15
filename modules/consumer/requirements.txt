@@ -1,4 +1,4 @@
-confluent-kafka
+confluent-kafka==2.2.0
 flask-kafka
 #kafka-python==2.2.7
 aniso8601==7.0.0
