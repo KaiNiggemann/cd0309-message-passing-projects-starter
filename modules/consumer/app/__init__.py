@@ -11,7 +11,7 @@ def create_app(env=None):
 
     app = Flask(__name__)
     app.config.from_object(config_by_name[env or "test"])
-    app.config["KAFKA_CONFIG"] = {'bootstrap.servers': 'localhost:9092',
+    app.config["KAFKA_CONFIG"] = {'bootstrap.servers': '10.43.70.252:9092',
                               'group.id': 'test-consumer-group',
                               'enable.auto.commit': 'false',
                               'auto.offset.reset': 'earliest'}
