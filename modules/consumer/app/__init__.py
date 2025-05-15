@@ -12,7 +12,7 @@ def create_app(env=None):
     app = Flask(__name__)
     app.config.from_object(config_by_name[env or "test"])
     app.config["KAFKA_CONFIG"] = {'bootstrap.servers': 'localhost:9092',
-                              #'group.id': 'foo',
+                              'group.id': 'test-consumer-group',
                               'enable.auto.commit': 'false',
                               'auto.offset.reset': 'earliest'}
     api = Api(app, title="UdaConnect Consumer Service", version="0.1.0")
