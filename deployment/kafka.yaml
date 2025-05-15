@@ -37,7 +37,7 @@ spec:
           value: PLAINTEXT://:9092
         - name: KAFKA_ADVERTISED_LISTENERS
           value: PLAINTEXT://kafka-broker:9092
-        image: apache/kafka-native:3.9.0
+        image: wurstmeister/kafka #apache/kafka-native:3.9.0
         imagePullPolicy: IfNotPresent
         name: kafka-broker
         ports:
