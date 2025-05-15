@@ -1,53 +1,45 @@
 import json
-import threading
+#import threading
 import os
 from services import LocationService, PersonService #ConnectionService
-import asyncio
-from kafka import KafkaConsumer
+#import asyncio
+#from kafka import KafkaConsumer
+from flask_kafka import FlaskKafka
 from app import create_app
 
+bus = FlaskKafka()
+bus.init_app(app)
 
-def consumer1():
+
+@bus.handle('locations')
+def test_topic_handler(consumer, msg):
   print("Start consuming 'locations'...")
-  consumer = KafkaConsumer('locations')
-  for message in consumer:
-    try:
-      content = json.loads(message.value.decode('ascii'))
-    except:
-      print("This seems not a valid JSON format with double quotes")
+  try:
+    content = json.loads(msg.value.decode('ascii'))
+  except:
+    print("This seems not a valid JSON format with double quotes")
   
-    print ("Location - processing message: " + str(content))
-    Location = LocationService.create(content)
-    print (Location)
+  print ("Location - processing message: " + str(content))
+  Location = LocationService.create(content)
+  print (Location)
   return
   
-def consumer2():
+@bus.handle('persons')
+def test_topic_handler(consumer,msg):
   print("Start consuming 'persons'...")
-  consumer = KafkaConsumer('persons')
-  for message in consumer:
-    try:
-      content = json.loads(message.value.decode('ascii'))
-    except:
-      print("This seems not a valid JSON format with double quotes")
+  try:
+    content = json.loads(message.value.decode('ascii'))
+  except:
+    print("This seems not a valid JSON format with double quotes")
       
-    print ("Person - processing message: " + str(content))
-    Person = PersonService.create(content)
-    print (Person)
+  print ("Person - processing message: " + str(content))
+  Person = PersonService.create(content)
+  print (Person)
   return
 
 app = create_app(os.getenv("FLASK_ENV") or "test")
 
-def flask_app():
-  app.run(debug=True)
-  return
 
 if __name__ == '__main__':
-    consumer0_thread = threading.Thread(target=flask_app)
-    consumer1_thread = threading.Thread(target=consumer1)
-    consumer2_thread = threading.Thread(target=consumer2)
-    consumer0_thread.start()
-    consumer1_thread.start()
-    consumer2_thread.start()
-    #consumer1_thread.join()
-    #consumer2_thread.join()
-
+  bus.run()
+  app.run(debug=True)
