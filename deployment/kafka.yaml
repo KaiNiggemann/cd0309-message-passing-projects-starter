@@ -1,5 +1,5 @@
 apiVersion: apps/v1beta1
-kind: Service
+kind: Deployment
 metadata:
   name: kafka
 spec:
