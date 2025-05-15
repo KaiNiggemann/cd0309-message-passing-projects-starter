@@ -10,6 +10,20 @@ spec:
   selector:
     app: kafka-broker
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: kafka-broker
+  name: kafka-nodeport
+spec:
+  ports:
+  - port: 9092
+    nodePort: 9093
+  selector:
+    app: kafka-broker
+  type: NodePort
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
