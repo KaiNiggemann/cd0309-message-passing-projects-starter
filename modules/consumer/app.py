@@ -19,6 +19,7 @@ def test_topic_handler(consumer, msg):
     content = json.loads(msg.value.decode('ascii'))
   except:
     print("This seems not a valid JSON format with double quotes")
+    return
   
   print ("Location - processing message: " + str(content))
   Location = LocationService.create(content)
@@ -32,6 +33,7 @@ def test_topic_handler(consumer,msg):
     content = json.loads(message.value.decode('ascii'))
   except:
     print("This seems not a valid JSON format with double quotes")
+    return
       
   print ("Person - processing message: " + str(content))
   Person = PersonService.create(content)
