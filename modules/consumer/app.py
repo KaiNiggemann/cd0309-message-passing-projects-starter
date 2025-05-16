@@ -28,7 +28,7 @@ def test_topic_handler(consumer, msg):
 def test_topic_handler(consumer,msg):
   print("Start consuming 'persons'...")
   try:
-    content = json.loads(message.value.decode('ascii'))
+    content = json.loads(msg.value.decode('ascii'))
   except:
     print("This seems not a valid JSON format with double quotes")
     return
