@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from kafka import KafkaProducer
+import asyncio
 from app.udaconnect.models import Location, Person #Connection
 from app.udaconnect.schemas import (
     #ConnectionSchema,
