@@ -9,7 +9,7 @@ from kafka import KafkaConsumer
 from app import create_app
 
 
-#app = create_app(os.getenv("FLASK_ENV") or "test")
+global app = create_app(os.getenv("FLASK_ENV") or "test")
 #bus = FlaskKafka()
 #bus.init_app(app)
 
@@ -42,7 +42,7 @@ def test_topic_handler(consumer,msg):
   return
 
 
-def consumer1(app):
+def consumer1():
   print("Start consuming 'locations'...")
   consumer = KafkaConsumer('locations', bootstrap_servers='kafka-broker.default.svc.cluster.local:9092')
   for message in consumer:
@@ -53,12 +53,12 @@ def consumer1(app):
       continue
 
     print ("Location - processing message: " + str(content))
-    Location = LocationService.create(content, app)
+    Location = LocationService.create(content)
     print (Location)
 
   return
 
-def consumer2(app):
+def consumer2():
   print("Start consuming 'persons'...")
   consumer = KafkaConsumer('persons', bootstrap_servers='kafka-broker.default.svc.cluster.local:9092')
   for message in consumer:
@@ -69,17 +69,15 @@ def consumer2(app):
       continue
 
     print ("Person - processing message: " + str(content))
-    Person = PersonService.create(content, app)
+    Person = PersonService.create(content)
     print (Person)
 
   return
 
 
 if __name__ == '__main__':
-    app = create_app(os.getenv("FLASK_ENV") or "test")
-    multiprocessing.set_start_method('spawn')
-    consumer1_proc = Process(target=consumer1, args=(app,))
-    consumer2_proc = Process(target=consumer2, args=(app,))
+    consumer1_proc = Process(target=consumer1)
+    consumer2_proc = Process(target=consumer2)
     consumer1_proc.start()
     consumer2_proc.start()
     app.run(debug=True)
