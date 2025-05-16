@@ -43,7 +43,7 @@ def test_topic_handler(consumer,msg):
 
 def consumer1():
   print("Start consuming 'locations'...")
-  consumer = KafkaConsumer('locations', bootstrap_servers='kafka-broker.default.svc.cluster.local:9092'))
+  consumer = KafkaConsumer('locations', bootstrap_servers='kafka-broker.default.svc.cluster.local:9092')
   for message in consumer:
     try:
       content = json.loads(message.value.decode('ascii'))
@@ -58,7 +58,7 @@ def consumer1():
 
 def consumer2():
   print("Start consuming 'persons'...")
-  consumer = KafkaConsumer('persons', bootstrap_servers='kafka-broker.default.svc.cluster.local:9092'))
+  consumer = KafkaConsumer('persons', bootstrap_servers='kafka-broker.default.svc.cluster.local:9092')
   for message in consumer:
     try:
       content = json.loads(message.value.decode('ascii'))
