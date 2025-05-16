@@ -76,6 +76,7 @@ def consumer2(app):
 
 if __name__ == '__main__':
     app = create_app(os.getenv("FLASK_ENV") or "test")
+    multiprocessing.set_start_method('spawn')
     consumer1_proc = Process(target=consumer1, args=(app,))
     consumer2_proc = Process(target=consumer2, args=(app,))
     consumer1_proc.start()
