@@ -2,7 +2,7 @@ import logging
 from datetime import datetime, timedelta
 from typing import Dict, List
 
-from app import db
+from .app import engine
 from app.udaconnect.models import Location, Person #Connection
 from app.udaconnect.schemas import LocationSchema, PersonSchema #ConnectionSchema
 from geoalchemy2.functions import ST_AsText, ST_Point
@@ -82,17 +82,17 @@ logger = logging.getLogger("udaconnect-consumer")
 
 
 class LocationService:
-    @staticmethod
-    def retrieve(location_id) -> Location:
-        location, coord_text = (
-            db.session.query(Location, Location.coordinate.ST_AsText())
-            .filter(Location.id == location_id)
-            .one()
-        )
+#    @staticmethod
+#    def retrieve(location_id) -> Location:
+#        location, coord_text = (
+#            db.session.query(Location, Location.coordinate.ST_AsText())
+#            .filter(Location.id == location_id)
+#            .one()
+#        )
 
         # Rely on database to return text form of point to reduce overhead of conversion in app code
-        location.wkt_shape = coord_text
-        return location
+#        location.wkt_shape = coord_text
+#        return location
 
     @staticmethod
     def create(location: Dict) -> Location:
@@ -101,6 +101,7 @@ class LocationService:
             logger.warning(f"Unexpected data format in payload: {validation_results}")
             raise Exception(f"Invalid payload: {validation_results}")
 
+        db = Session(engine)
         new_location = Location()
         new_location.person_id = location["person_id"]
         new_location.creation_time = location["creation_time"]
@@ -114,6 +115,7 @@ class LocationService:
 class PersonService:
     @staticmethod
     def create(person: Dict) -> Person:
+        db = Session(engine)
         new_person = Person()
         new_person.first_name = person["first_name"]
         new_person.last_name = person["last_name"]
