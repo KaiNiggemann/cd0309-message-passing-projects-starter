@@ -95,7 +95,7 @@ class LocationService:
         return location
 
     @staticmethod
-    def create(location: Dict, app) -> Location:
+    def create(location: Dict) -> Location:
         validation_results: Dict = LocationSchema().validate(location)
         if validation_results:
             logger.warning(f"Unexpected data format in payload: {validation_results}")
@@ -113,7 +113,7 @@ class LocationService:
 
 class PersonService:
     @staticmethod
-    def create(person: Dict, app) -> Person:
+    def create(person: Dict) -> Person:
         new_person = Person()
         new_person.first_name = person["first_name"]
         new_person.last_name = person["last_name"]
