@@ -27,9 +27,10 @@ class LocationResource(Resource):
     @accepts(schema=LocationSchema)
     @responds(schema=LocationSchema)
     def post(self) -> Location:
-        request.get_json()
-        location: Location = LocationService.create(request.get_json())
-        return location
+        publisher = bus.get_producer()
+        publisher.produce("locations", request.get_json())
+        publisher.poll(1)
+        return "Published to {} => {}".format("Locations", request.get_json())
 
     @responds(schema=LocationSchema)
     def get(self, location_id) -> Location:
@@ -42,10 +43,11 @@ class PersonsResource(Resource):
     @accepts(schema=PersonSchema)
     @responds(schema=PersonSchema)
     def post(self) -> Person:
-        payload = request.get_json()
-        new_person: Person = PersonService.create(payload)
-        return new_person
-
+        publisher = bus.get_producer()
+        publisher.produce("persons", request.get_json())
+        publisher.poll(1)
+        return "Published to {} => {}".format("persons", request.get_json())
+        
     @responds(schema=PersonSchema, many=True)
     def get(self) -> List[Person]:
         persons: List[Person] = PersonService.retrieve_all()
