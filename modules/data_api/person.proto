@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+message PersonMessage {
+  string id = 1;
+  string created_by = 2;
+  Status status = 3;
+  string created_at = 4;
+  repeated Equipment equipment = 5;
+}
+
+message Empty {
+
+}
+
+message OrderMessageList {
+  repeated OrderMessage orders = 1;
+}
+
+service OrderService {
+    rpc Create(OrderMessage) returns (OrderMessage);
+    rpc Get(Empty) returns (OrderMessageList);
+}
