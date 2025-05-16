@@ -31,7 +31,8 @@ class LocationResource(Resource):
         
         kafka_data = json.dumps( request.get_json() ).encode()
         producer.send("locations", kafka_data )
-        return "Published to {} => {}".format("Locations", kafka_data )
+        print( "Published to {} => {}".format("locations", kafka_data ) )
+        return "Published to {} => {}".format("locations", kafka_data )
 
     @responds(schema=LocationSchema)
     def get(self, location_id) -> Location:
@@ -49,6 +50,7 @@ class PersonsResource(Resource):
         
         kafka_data = json.dumps( request.get_json() ).encode()
         producer.send("persons", kafka_data )
+        print ( "Published to {} => {}".format("persons", kafka_data ) )
         return "Published to {} => {}".format("persons", kafka_data )
         
     @responds(schema=PersonSchema, many=True)
