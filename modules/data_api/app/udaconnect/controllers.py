@@ -29,9 +29,9 @@ class LocationResource(Resource):
         KAFKA_SERVER = 'kafka-broker.default.svc.cluster.local:9092'
         producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER)
         
-        #kafka_data = json.dumps(order_data).encode()
-        producer.send("locations", request.get_json().encode() )
-        return "Published to {} => {}".format("Locations", request.get_json().encode() )
+        kafka_data = json.dumps( request.get_json() ).encode()
+        producer.send("locations", kafka_data )
+        return "Published to {} => {}".format("Locations", kafka_data )
 
     @responds(schema=LocationSchema)
     def get(self, location_id) -> Location:
@@ -47,9 +47,9 @@ class PersonsResource(Resource):
         KAFKA_SERVER = 'kafka-broker.default.svc.cluster.local:9092'
         producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER)
         
-        #kafka_data = json.dumps(order_data).encode()
-        producer.send("persons", request.get_json().encode() )
-        return "Published to {} => {}".format("persons", request.get_json().encode() )
+        kafka_data = json.dumps( request.get_json() ).encode()
+        producer.send("persons", kafka_data )
+        return "Published to {} => {}".format("persons", kafka_data )
         
     @responds(schema=PersonSchema, many=True)
     def get(self) -> List[Person]:
