@@ -1,6 +1,7 @@
 import json
 import os
 import multiprocessing
+from multiprocessing import Process
 from services import LocationService, PersonService #ConnectionService
 
 from flask_kafka import FlaskKafka
