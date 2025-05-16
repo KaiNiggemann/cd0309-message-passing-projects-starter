@@ -1,9 +1,7 @@
 import json
-#import threading
 import os
 from services import LocationService, PersonService #ConnectionService
-#import asyncio
-#from kafka import KafkaConsumer
+
 from flask_kafka import FlaskKafka
 from app import create_app
 
