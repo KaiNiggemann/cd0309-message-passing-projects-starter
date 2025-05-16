@@ -9,13 +9,14 @@ from kafka import KafkaConsumer
 from app import create_app
 
 
-global app = create_app(os.getenv("FLASK_ENV") or "test")
+app = create_app(os.getenv("FLASK_ENV") or "test")
 #bus = FlaskKafka()
 #bus.init_app(app)
 
 #@bus.handle('locations')
 def test_topic_handler(consumer, msg):
   print("Start consuming 'locations'...")
+  app = create_app(os.getenv("FLASK_ENV") or "test")
   try:
     content = json.loads(msg.value.decode('ascii'))
   except:
@@ -30,6 +31,7 @@ def test_topic_handler(consumer, msg):
 #@bus.handle('persons')
 def test_topic_handler(consumer,msg):
   print("Start consuming 'persons'...")
+  app = create_app(os.getenv("FLASK_ENV") or "test")
   try:
     content = json.loads(msg.value.decode('ascii'))
   except:
