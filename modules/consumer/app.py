@@ -9,10 +9,10 @@ from app import create_app
 
 
 app = create_app(os.getenv("FLASK_ENV") or "test")
-bus = FlaskKafka()
-bus.init_app(app)
+#bus = FlaskKafka()
+#bus.init_app(app)
 
-@bus.handle('locations')
+#@bus.handle('locations')
 def test_topic_handler(consumer, msg):
   print("Start consuming 'locations'...")
   try:
@@ -26,7 +26,7 @@ def test_topic_handler(consumer, msg):
   print (Location)
   return
   
-@bus.handle('persons')
+#@bus.handle('persons')
 def test_topic_handler(consumer,msg):
   print("Start consuming 'persons'...")
   try:
