@@ -7,7 +7,7 @@ from app.udaconnect.schemas import (
     PersonSchema,
 )
 from app.udaconnect.services import LocationService, PersonService #ConnectionService
-from flask import request
+from flask import jsonify, request, g, Response
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 from typing import Optional, List
@@ -18,8 +18,15 @@ DATE_FORMAT = "%Y-%m-%d"
 api = Namespace("UdaConnect DATA API", description="Connections via geolocation.")  # noqa
 
 
-# TODO: This needs better exception handling
-
+@app.before_request
+def before_request():
+    # Set up a Kafka producer
+    KAFKA_SERVER = 'localhost:9092'
+    producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER)
+    # Setting Kafka to g enables us to use this
+    # in other parts of our application
+    g.kafka_producer = producer
+    
 
 @api.route("/locations")
 @api.route("/locations/<location_id>")
@@ -28,10 +35,10 @@ class LocationResource(Resource):
     @accepts(schema=LocationSchema)
     @responds(schema=LocationSchema)
     def post(self) -> Location:
-        publisher = bus.get_producer()
-        publisher.produce("locations", request.get_json())
-        publisher.poll(1)
-        return "Published to {} => {}".format("Locations", request.get_json())
+        kafka_data = json.dumps(order_data).encode()
+        kafka_producer = g.kafka_producer
+        kafka_producer.send("locations", kafka_data)
+        return "Published to {} => {}".format("Locations", kafka_data)
 
     @responds(schema=LocationSchema)
     def get(self, location_id) -> Location:
@@ -44,10 +51,10 @@ class PersonsResource(Resource):
     @accepts(schema=PersonSchema)
     @responds(schema=PersonSchema)
     def post(self) -> Person:
-        publisher = bus.get_producer()
-        publisher.produce("persons", request.get_json())
-        publisher.poll(1)
-        return "Published to {} => {}".format("persons", request.get_json())
+        kafka_data = json.dumps(order_data).encode()
+        kafka_producer = g.kafka_producer
+        kafka_producer.send("persons", kafka_data)
+        return "Published to {} => {}".format("persons", kafka_data)
         
     @responds(schema=PersonSchema, many=True)
     def get(self) -> List[Person]:
