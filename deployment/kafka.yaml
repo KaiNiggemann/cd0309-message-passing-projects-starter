@@ -19,7 +19,7 @@ metadata:
 spec:
   ports:
   - port: 9092
-    nodePort: 9093
+    nodePort: 30002
   selector:
     app: kafka-broker
   type: NodePort
