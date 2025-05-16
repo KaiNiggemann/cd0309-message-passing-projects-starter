@@ -11,8 +11,8 @@ from app.config import config_by_name
 from sqlalchemy import create_engine
 
 
-engine = create_engine('postgresql+psycopg2://user:password\
-@hostname/database_name')
+print("Connecting to: " + config_by_name[os.getenv("FLASK_ENV") or "test"].SQLALCHEMY_DATABASE_URI)
+engine = create_engine(config_by_name[os.getenv("FLASK_ENV") or "test"].SQLALCHEMY_DATABASE_URI)
 
 #app = create_app(os.getenv("FLASK_ENV") or "test")
 #bus = FlaskKafka()
