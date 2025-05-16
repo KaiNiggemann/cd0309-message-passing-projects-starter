@@ -11,7 +11,6 @@ from flask import jsonify, request, g, Response
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 from typing import Optional, List
-from wsgi import bus
 
 DATE_FORMAT = "%Y-%m-%d"
 
