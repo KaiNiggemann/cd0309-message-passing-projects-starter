@@ -17,7 +17,7 @@ DATE_FORMAT = "%Y-%m-%d"
 api = Namespace("UdaConnect DATA API", description="Connections via geolocation.")  # noqa
 
 
-@app.before_request
+@api.before_request
 def before_request():
     # Set up a Kafka producer
     KAFKA_SERVER = 'kafka-broker.default.svc.cluster.local:9092'
