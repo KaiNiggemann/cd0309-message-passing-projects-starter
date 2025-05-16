@@ -1,5 +1,6 @@
-confluent-kafka==2.2.0
-flask-kafka
+#confluent-kafka==2.2.0
+kafka
+#flask-kafka
 aniso8601==7.0.0
 attrs==19.1.0
 Click==7.0
