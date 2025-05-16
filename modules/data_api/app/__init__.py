@@ -12,7 +12,7 @@ def create_app(env=None):
 
     app = Flask(__name__)
     app.config.from_object(config_by_name[env or "test"])
-    app.config["KAFKA_CONFIG"] = {'bootstrap.servers': 'kafka-service.default.svc.cluster.local:9092',
+    app.config["KAFKA_CONFIG"] = {'bootstrap.servers': 'kafka-broker.default.svc.cluster.local:9092',
                                   'group.id': 'test-consumer-group',
                                   'enable.auto.commit': 'false',
                                   'auto.offset.reset': 'earliest'}
