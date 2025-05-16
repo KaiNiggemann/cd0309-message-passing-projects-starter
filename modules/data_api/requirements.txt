@@ -1,5 +1,5 @@
 #confluent-kafka==2.2.0
-kafka
+kafka-python
 #flask-kafka
 aniso8601==7.0.0
 attrs==19.1.0
