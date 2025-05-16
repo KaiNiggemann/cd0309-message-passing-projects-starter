@@ -20,11 +20,14 @@ def create_app(env=None):
 
     CORS(app)  # Set CORS for development
 
-    register_routes(api, app)
+    bus = FlaskKafka()
+    bus.init_app(app)
+    
+    register_routes(api, app, bus)
     db.init_app(app)
 
     @app.route("/health")
     def health():
         return jsonify("healthy")
 
-    return app
+    return app, bus
