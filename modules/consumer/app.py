@@ -7,12 +7,7 @@ from services import LocationService, PersonService #ConnectionService
 #from flask_kafka import FlaskKafka
 from kafka import KafkaConsumer
 #from app import create_app
-from app.config import config_by_name
-from sqlalchemy import create_engine
 
-
-print("Connecting to: " + config_by_name[os.getenv("FLASK_ENV") or "test"].SQLALCHEMY_DATABASE_URI)
-engine = create_engine(config_by_name[os.getenv("FLASK_ENV") or "test"].SQLALCHEMY_DATABASE_URI)
 
 #app = create_app(os.getenv("FLASK_ENV") or "test")
 #bus = FlaskKafka()
