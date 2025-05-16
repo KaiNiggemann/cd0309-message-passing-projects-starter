@@ -7,10 +7,6 @@ from flask_kafka import FlaskKafka
 from kafka import KafkaConsumer
 from app import create_app
 
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
-
 
 #app = create_app(os.getenv("FLASK_ENV") or "test")
 #bus = FlaskKafka()
