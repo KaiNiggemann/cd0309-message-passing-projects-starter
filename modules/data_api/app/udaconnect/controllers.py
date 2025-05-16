@@ -30,8 +30,8 @@ class LocationResource(Resource):
         producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER)
         
         #kafka_data = json.dumps(order_data).encode()
-        producer.send("locations", request.get_json())
-        return "Published to {} => {}".format("Locations", request.get_json())
+        producer.send("locations", request.get_json().encode() )
+        return "Published to {} => {}".format("Locations", request.get_json().encode() )
 
     @responds(schema=LocationSchema)
     def get(self, location_id) -> Location:
@@ -48,8 +48,8 @@ class PersonsResource(Resource):
         producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER)
         
         #kafka_data = json.dumps(order_data).encode()
-        producer.send("persons", request.get_json())
-        return "Published to {} => {}".format("persons", request.get_json())
+        producer.send("persons", request.get_json().encode() )
+        return "Published to {} => {}".format("persons", request.get_json().encode() )
         
     @responds(schema=PersonSchema, many=True)
     def get(self) -> List[Person]:
