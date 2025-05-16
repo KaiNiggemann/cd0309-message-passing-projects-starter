@@ -4,16 +4,21 @@ import multiprocessing
 from multiprocessing import Process
 from services import LocationService, PersonService #ConnectionService
 
-from flask_kafka import FlaskKafka
+#from flask_kafka import FlaskKafka
 from kafka import KafkaConsumer
-from app import create_app
+#from app import create_app
+from app.config import config_by_name
+from sqlalchemy import create_engine
 
 
-app = create_app(os.getenv("FLASK_ENV") or "test")
-bus = FlaskKafka()
-bus.init_app(app)
+engine = create_engine('postgresql+psycopg2://user:password\
+@hostname/database_name')
 
-@bus.handle('locations')
+#app = create_app(os.getenv("FLASK_ENV") or "test")
+#bus = FlaskKafka()
+#bus.init_app(app)
+
+#@bus.handle('locations')
 def locations_handler(consumer, msg):
   print("Start consuming 'locations'...")
   app = create_app(os.getenv("FLASK_ENV") or "test")
@@ -28,7 +33,7 @@ def locations_handler(consumer, msg):
   print (Location)
   return
   
-@bus.handle('persons')
+#@bus.handle('persons')
 def persons_handler(consumer,msg):
   print("Start consuming 'persons'...")
   app = create_app(os.getenv("FLASK_ENV") or "test")
