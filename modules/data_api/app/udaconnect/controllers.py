@@ -8,7 +8,7 @@ from app.udaconnect.schemas import (
     PersonSchema,
 )
 from app.udaconnect.services import LocationService, PersonService #ConnectionService
-from flask import jsonify, request, g, Response
+from flask import jsonify, request, Response
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 from typing import Optional, List
