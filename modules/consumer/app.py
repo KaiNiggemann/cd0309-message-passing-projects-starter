@@ -83,9 +83,9 @@ def consumer2():
 
 
 if __name__ == '__main__':
-    #consumer1_proc = Process(target=consumer1)
-    #consumer2_proc = Process(target=consumer2)
-    #consumer1_proc.start()
-    #consumer2_proc.start()
-    app.run(debug=True)
+    consumer1_proc = Process(target=consumer1)
+    consumer2_proc = Process(target=consumer2)
+    consumer1_proc.start()
+    consumer2_proc.start()
+    #app.run(debug=True)
 
