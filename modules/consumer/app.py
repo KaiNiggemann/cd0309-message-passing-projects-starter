@@ -1,6 +1,6 @@
 import json
 import os
-import threading
+from multiprocessing import Process
 from services import LocationService, PersonService #ConnectionService
 
 from flask_kafka import FlaskKafka
@@ -75,9 +75,9 @@ def consumer2():
 
 
 if __name__ == '__main__':
-    consumer1_thread = threading.Thread(target=consumer1)
-    consumer2_thread = threading.Thread(target=consumer2)
-    consumer1_thread.start()
-    consumer2_thread.start()
+    consumer1_proc = Process(target=consumer1)
+    consumer2_proc = Process(target=consumer2)
+    consumer1_proc.start()
+    consumer2_proc.start()
     app.run(debug=True)
 
