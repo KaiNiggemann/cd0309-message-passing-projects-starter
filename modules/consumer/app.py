@@ -41,7 +41,7 @@ def test_topic_handler(consumer,msg):
   return
 
 
-def consumer1():
+def consumer1(app):
   print("Start consuming 'locations'...")
   consumer = KafkaConsumer('locations', bootstrap_servers='kafka-broker.default.svc.cluster.local:9092')
   for message in consumer:
@@ -52,12 +52,12 @@ def consumer1():
       continue
 
     print ("Location - processing message: " + str(content))
-    Location = LocationService.create(content)
+    Location = LocationService.create(content, app)
     print (Location)
 
   return
 
-def consumer2():
+def consumer2(app):
   print("Start consuming 'persons'...")
   consumer = KafkaConsumer('persons', bootstrap_servers='kafka-broker.default.svc.cluster.local:9092')
   for message in consumer:
@@ -68,7 +68,7 @@ def consumer2():
       continue
 
     print ("Person - processing message: " + str(content))
-    Person = PersonService.create(content)
+    Person = PersonService.create(content, app)
     print (Person)
 
   return
@@ -76,8 +76,8 @@ def consumer2():
 
 if __name__ == '__main__':
     app = create_app(os.getenv("FLASK_ENV") or "test")
-    consumer1_proc = Process(target=consumer1)
-    consumer2_proc = Process(target=consumer2)
+    consumer1_proc = Process(target=consumer1, args=(app))
+    consumer2_proc = Process(target=consumer2, args=(app))
     consumer1_proc.start()
     consumer2_proc.start()
     app.run(debug=True)
