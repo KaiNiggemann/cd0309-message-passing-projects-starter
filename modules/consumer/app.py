@@ -10,11 +10,11 @@ from app import create_app
 
 
 app = create_app(os.getenv("FLASK_ENV") or "test")
-#bus = FlaskKafka()
-#bus.init_app(app)
+bus = FlaskKafka()
+bus.init_app(app)
 
-#@bus.handle('locations')
-def test_topic_handler(consumer, msg):
+@bus.handle('locations')
+def locations_handler(consumer, msg):
   print("Start consuming 'locations'...")
   app = create_app(os.getenv("FLASK_ENV") or "test")
   try:
@@ -28,8 +28,8 @@ def test_topic_handler(consumer, msg):
   print (Location)
   return
   
-#@bus.handle('persons')
-def test_topic_handler(consumer,msg):
+@bus.handle('persons')
+def persons_handler(consumer,msg):
   print("Start consuming 'persons'...")
   app = create_app(os.getenv("FLASK_ENV") or "test")
   try:
@@ -78,9 +78,9 @@ def consumer2():
 
 
 if __name__ == '__main__':
-    consumer1_proc = Process(target=consumer1)
-    consumer2_proc = Process(target=consumer2)
-    consumer1_proc.start()
-    consumer2_proc.start()
+    #consumer1_proc = Process(target=consumer1)
+    #consumer2_proc = Process(target=consumer2)
+    #consumer1_proc.start()
+    #consumer2_proc.start()
     app.run(debug=True)
 
