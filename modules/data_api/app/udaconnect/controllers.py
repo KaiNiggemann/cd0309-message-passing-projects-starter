@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from kafka import KafkaProducer
 from app.udaconnect.models import Location, Person #Connection
 from app.udaconnect.schemas import (
     #ConnectionSchema,
@@ -17,16 +18,6 @@ DATE_FORMAT = "%Y-%m-%d"
 api = Namespace("UdaConnect DATA API", description="Connections via geolocation.")  # noqa
 
 
-@api.before_request
-def before_request():
-    # Set up a Kafka producer
-    KAFKA_SERVER = 'kafka-broker.default.svc.cluster.local:9092'
-    producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER)
-    # Setting Kafka to g enables us to use this
-    # in other parts of our application
-    g.kafka_producer = producer
-    
-
 @api.route("/locations")
 @api.route("/locations/<location_id>")
 @api.param("location_id", "Unique ID for a given Location", _in="query")
@@ -34,9 +25,11 @@ class LocationResource(Resource):
     @accepts(schema=LocationSchema)
     @responds(schema=LocationSchema)
     def post(self) -> Location:
+        KAFKA_SERVER = 'kafka-broker.default.svc.cluster.local:9092'
+        producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER)
+        
         kafka_data = json.dumps(order_data).encode()
-        kafka_producer = g.kafka_producer
-        kafka_producer.send("locations", kafka_data)
+        producer.send("locations", kafka_data)
         return "Published to {} => {}".format("Locations", kafka_data)
 
     @responds(schema=LocationSchema)
@@ -50,9 +43,11 @@ class PersonsResource(Resource):
     @accepts(schema=PersonSchema)
     @responds(schema=PersonSchema)
     def post(self) -> Person:
+        KAFKA_SERVER = 'kafka-broker.default.svc.cluster.local:9092'
+        producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER)
+        
         kafka_data = json.dumps(order_data).encode()
-        kafka_producer = g.kafka_producer
-        kafka_producer.send("persons", kafka_data)
+        producer.send("persons", kafka_data)
         return "Published to {} => {}".format("persons", kafka_data)
         
     @responds(schema=PersonSchema, many=True)
