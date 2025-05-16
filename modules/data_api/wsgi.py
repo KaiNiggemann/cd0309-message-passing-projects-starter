@@ -9,4 +9,5 @@ bus = FlaskKafka()
 bus.init_app(app)
 
 if __name__ == "__main__":
+    bus.run()
     app.run(debug=True)
