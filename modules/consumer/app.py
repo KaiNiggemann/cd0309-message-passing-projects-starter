@@ -49,6 +49,7 @@ def consumer1():
       content = json.loads(message.value.decode('ascii'))
     except:
       print("This seems not a valid JSON format with double quotes")
+      continue
 
     print ("Location - processing message: " + str(content))
     Location = LocationService.create(content)
@@ -64,6 +65,7 @@ def consumer2():
       content = json.loads(message.value.decode('ascii'))
     except:
       print("This seems not a valid JSON format with double quotes")
+      continue
 
     print ("Person - processing message: " + str(content))
     Person = PersonService.create(content)
