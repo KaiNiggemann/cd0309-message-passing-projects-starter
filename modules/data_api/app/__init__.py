@@ -13,22 +13,15 @@ def create_app(env=None):
 
     app = Flask(__name__)
     app.config.from_object(config_by_name[env or "test"])
-    app.config["KAFKA_CONFIG"] = {'bootstrap.servers': 'kafka-broker.default.svc.cluster.local:9092',
-                                  'group.id': 'test-consumer-group',
-                                  'enable.auto.commit': 'false',
-                                  'auto.offset.reset': 'earliest'}
     api = Api(app, title="UdaConnect DATA API", version="0.1.0")
 
     CORS(app)  # Set CORS for development
 
-    bus = FlaskKafka()
-    bus.init_app(app)
-    
-    register_routes(api, app, bus)
+    register_routes(api, app)
     db.init_app(app)
 
     @app.route("/health")
     def health():
         return jsonify("healthy")
 
-    return app, bus
+    return app
