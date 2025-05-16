@@ -8,7 +8,7 @@ from kafka import KafkaConsumer
 from app import create_app
 
 
-app = create_app(os.getenv("FLASK_ENV") or "test")
+#app = create_app(os.getenv("FLASK_ENV") or "test")
 #bus = FlaskKafka()
 #bus.init_app(app)
 
@@ -75,6 +75,7 @@ def consumer2():
 
 
 if __name__ == '__main__':
+    app = create_app(os.getenv("FLASK_ENV") or "test")
     consumer1_proc = Process(target=consumer1)
     consumer2_proc = Process(target=consumer2)
     consumer1_proc.start()
