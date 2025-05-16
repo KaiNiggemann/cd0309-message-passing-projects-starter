@@ -4,9 +4,8 @@ from flask_kafka import FlaskKafka
 from app import create_app
 
 
-app = create_app(os.getenv("FLASK_ENV") or "test")
-bus = FlaskKafka()
-bus.init_app(app)
+app, bus = create_app(os.getenv("FLASK_ENV") or "test")
+
 
 if __name__ == "__main__":
     bus.run()
