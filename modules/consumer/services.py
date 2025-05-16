@@ -2,7 +2,7 @@ import logging
 from datetime import datetime, timedelta
 from typing import Dict, List
 
-from .app import engine
+from app import engine
 from app.udaconnect.models import Location, Person #Connection
 from app.udaconnect.schemas import LocationSchema, PersonSchema #ConnectionSchema
 from geoalchemy2.functions import ST_AsText, ST_Point
