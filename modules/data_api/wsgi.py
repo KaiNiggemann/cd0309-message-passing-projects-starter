@@ -1,6 +1,5 @@
 import os
 
-from flask_kafka import FlaskKafka
 from app import create_app
 
 
