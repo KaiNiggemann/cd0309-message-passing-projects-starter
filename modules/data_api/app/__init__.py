@@ -12,6 +12,10 @@ def create_app(env=None):
 
     app = Flask(__name__)
     app.config.from_object(config_by_name[env or "test"])
+    app.config["KAFKA_CONFIG"] = {'bootstrap.servers': 'kafka-service.default.svc.cluster.local:9092',
+                                  'group.id': 'test-consumer-group',
+                                  'enable.auto.commit': 'false',
+                                  'auto.offset.reset': 'earliest'}
     api = Api(app, title="UdaConnect DATA API", version="0.1.0")
 
     CORS(app)  # Set CORS for development
