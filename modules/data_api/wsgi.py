@@ -30,7 +30,7 @@ person_pb2_grpc.add_PersonServiceServicer_to_server(PersonServicer(), server)
 
 if __name__ == "__main__":
     print("gRPC Server starting on port 5005...")
-    server.add_insecure_port("[::]:5005")
+    server.add_insecure_port("0.0.0.0:5005")
     server.start()
     print("started")
     
