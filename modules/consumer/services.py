@@ -7,6 +7,7 @@ from app.udaconnect.models import Location, Person #Connection
 from app.udaconnect.schemas import LocationSchema, PersonSchema #ConnectionSchema
 from geoalchemy2.functions import ST_AsText, ST_Point
 from sqlalchemy.sql import text
+from sqlalchemy.orm import Session
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger("udaconnect-consumer")
