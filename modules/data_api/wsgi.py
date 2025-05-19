@@ -32,6 +32,13 @@ if __name__ == "__main__":
     print("gRPC Server starting on port 5005...")
     server.add_insecure_port("0.0.0.0:5005")
     server.start()
-    print("started")
+    print("gRPC started")
     
     app.run(debug=True, host="0.0.0.0", port=5001)
+    print("Flask started")
+    # Keep thread alive
+    try:
+        while True:
+            time.sleep(86400)
+    except KeyboardInterrupt:
+        server.stop(0)
