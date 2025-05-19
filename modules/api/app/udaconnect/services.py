@@ -8,6 +8,10 @@ from app.udaconnect.schemas import ConnectionSchema, LocationSchema, PersonSchem
 from geoalchemy2.functions import ST_AsText, ST_Point
 from sqlalchemy.sql import text
 
+import grpc
+import order_pb2
+import order_pb2_grpc
+
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger("udaconnect-api")
 
@@ -30,7 +34,8 @@ class ConnectionService:
         ).all()
 
         # Cache all users in memory for quick lookup
-        person_map: Dict[str, Person] = {person.id: person for person in PersonService.retrieve_all()}
+        # Cache with many persons not feasible anymore. Dedicated lookup see below.
+        #person_map: Dict[str, Person] = {person.id: person for person in PersonService.retrieve_all()}
 
         # Prepare arguments for queries
         data = []
@@ -46,6 +51,10 @@ class ConnectionService:
                 }
             )
 
+        channel = grpc.insecure_channel("udaconnect-data-api-grpc.default.svc.cluster.local:5005")
+        stub = order_pb2_grpc.OrderServiceStub(channel)
+
+        
         query = text(
             """
         SELECT  person_id, id, ST_X(coordinate), ST_Y(coordinate), creation_time
@@ -72,9 +81,23 @@ class ConnectionService:
                 )
                 location.set_wkt_with_coords(exposed_lat, exposed_long)
 
+                # Getting person details
+                personRequest = person_pb2.PersonRequestMessage(
+                    id=exposed_person_id
+                )
+                personResponse = stub.Get(personRequest)
+                new_person = Person()
+                new_person.id = personResponse.id
+                new_person.first_name = personResponse.first_name
+                new_person.last_name = personResponse.last_name
+                new_person.company_name = personResponse.company_name
+
+                print ("gRPC Response:...")
+                print (new_person)
+
                 result.append(
                     Connection(
-                        person=person_map[exposed_person_id], location=location,
+                        person=new_person, location=location,
                     )
                 )
 
