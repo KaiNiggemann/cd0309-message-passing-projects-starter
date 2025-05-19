@@ -9,8 +9,8 @@ from geoalchemy2.functions import ST_AsText, ST_Point
 from sqlalchemy.sql import text
 
 import grpc
-import order_pb2
-import order_pb2_grpc
+import person_pb2
+import person_pb2_grpc
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger("udaconnect-api")
