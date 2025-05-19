@@ -52,7 +52,7 @@ class ConnectionService:
             )
 
         channel = grpc.insecure_channel("udaconnect-data-api-grpc.default.svc.cluster.local:5005")
-        stub = order_pb2_grpc.OrderServiceStub(channel)
+        stub = person_pb2_grpc.PersonServiceStub(channel)
 
         
         query = text(
