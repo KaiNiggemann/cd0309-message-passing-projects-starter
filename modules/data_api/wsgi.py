@@ -15,10 +15,10 @@ class PersonServicer(order_pb2_grpc.PersonServiceServicer):
         Person = PersonService.retrieve(request.id)
 
         PersonM = order_pb2.PersonResponseMessage(
-            id = Person.id;
-            first_name = Person.first_name;
-            last_name = Person.last_name;
-            company_name = Person.company_name;
+            id = Person.id,
+            first_name = Person.first_name,
+            last_name = Person.last_name,
+            company_name = Person.company_name,
         )
         return PersonM
 
