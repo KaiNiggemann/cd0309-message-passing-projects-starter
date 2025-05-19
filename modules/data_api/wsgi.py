@@ -40,13 +40,14 @@ class PersonServicer(order_pb2_grpc.PersonServiceServicer):
 
 
 # Initialize gRPC server
-#server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
-#person_pb2_grpc.add_PersonServiceServicer_to_server(PersonServicer(), server)
+server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
+person_pb2_grpc.add_PersonServiceServicer_to_server(PersonServicer(), server)
 
 
 if __name__ == "__main__":
-    #print("Server starting on port 5005...")
-    #server.add_insecure_port("[::]:5005")
-    #server.start()
-
+    print("Server starting on port 5005...")
+    server.add_insecure_port("[::]:5005")
+    server.start()
+    print("started")
+    
     app.run(debug=True)
