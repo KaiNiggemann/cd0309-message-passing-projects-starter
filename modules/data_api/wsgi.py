@@ -10,11 +10,11 @@ from app import create_app
 app = create_app(os.getenv("FLASK_ENV") or "test")
 
 
-class PersonServicer(order_pb2_grpc.PersonServiceServicer):
+class PersonServicer(person_pb2_grpc.PersonServiceServicer):
     def Get(self, request, context):
         Person = PersonService.retrieve(request.id)
 
-        PersonM = order_pb2.PersonResponseMessage(
+        PersonM = person_pb2.PersonResponseMessage(
             id = Person.id,
             first_name = Person.first_name,
             last_name = Person.last_name,
