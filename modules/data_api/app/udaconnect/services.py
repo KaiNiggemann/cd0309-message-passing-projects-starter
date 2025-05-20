@@ -8,6 +8,9 @@ from app.udaconnect.schemas import LocationSchema, PersonSchema #ConnectionSchem
 from geoalchemy2.functions import ST_AsText, ST_Point
 from sqlalchemy.sql import text
 
+from sqlalchemy.sql import text
+from sqlalchemy.orm import Session
+
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger("udaconnect-api")
 
@@ -84,8 +87,9 @@ logger = logging.getLogger("udaconnect-api")
 class LocationService:
     @staticmethod
     def retrieve(location_id) -> Location:
+        db = Session(engine)
         location, coord_text = (
-            db.session.query(Location, Location.coordinate.ST_AsText())
+            db.query(Location, Location.coordinate.ST_AsText())
             .filter(Location.id == location_id)
             .one()
         )
@@ -111,24 +115,29 @@ class LocationService:
         return new_location
 
 
+           
+
 class PersonService:
     @staticmethod
     def create(person: Dict) -> Person:
+        db = Session(engine)
         new_person = Person()
         new_person.first_name = person["first_name"]
         new_person.last_name = person["last_name"]
         new_person.company_name = person["company_name"]
 
-        db.session.add(new_person)
-        db.session.commit()
+        db.add(new_person)
+        db.commit()
 
         return new_person
 
     @staticmethod
     def retrieve(person_id: int) -> Person:
-        person = db.session.query(Person).get(person_id)
+        db = Session(engine)
+        person = db.query(Person).get(person_id)
         return person
 
     @staticmethod
     def retrieve_all() -> List[Person]:
-        return db.session.query(Person).all()
+        db = Session(engine)
+        return db.query(Person).all()
