@@ -2,7 +2,7 @@
 
 # Project Updates!!!!!
 ## Architecture
-![image](Project 2 Architecture.drawio.png)
+![image](./Project 2 Architecture.drawio.png)
 * Open API for UDACONNECT APP API: swagger-udaconnect-app-api.json
 * Open API for UDACONNECT DATA API: swagger-udaconnect-data-api.json
 
@@ -23,7 +23,8 @@ These pages should also load on your web browser:
 Instead of Postman collection I used curl for simplicity (and because POSTMAN is not free anymore):
 * Testing of UDACONNECT APP API via APP
 * Testing of UDACONNECT DATA API via CURL (and db scripts optionally)
-* (Kafka Producer and Consumer are tested indirectly via POST requests)
+  (Kafka Producer and Consumer are tested indirectly via POST requests)
+  
   curl -X POST 'http://127.0.0.1:30002/api/persons' -H 'Content-Type: application/json' -d '{"first_name": "Kai", "last_name": "niggemann", "company_name": "telekom"}'
   curl -X GET 'http://127.0.0.1:30002/api/persons' -H 'accept: application/json'
   sh scripts/show_persons.sh <pod>
