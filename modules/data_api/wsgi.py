@@ -5,6 +5,8 @@ import grpc
 import person_pb2
 import person_pb2_grpc
 
+from app.udaconnect.services import PersonService
+
 from app import create_app
 
 app = create_app(os.getenv("FLASK_ENV") or "test")
