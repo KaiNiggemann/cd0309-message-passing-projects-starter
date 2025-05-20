@@ -3,8 +3,7 @@
 # Project Updates!!!!!
 ## Architecture
 <img src="Project 2 Architecture.drawio.png"
-     alt="Markdown Monster icon" />
-![image](Project 2 Architecture.drawio.png)
+     alt="Architecture diagram" />
 * Open API for UDACONNECT APP API: swagger-udaconnect-app-api.json
 * Open API for UDACONNECT DATA API: swagger-udaconnect-data-api.json
 
