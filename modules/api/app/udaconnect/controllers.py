@@ -13,6 +13,7 @@ from flask_restx import Namespace, Resource
 from typing import Optional, List
 
 import requests
+import json
 
 DATE_FORMAT = "%Y-%m-%d"
 
