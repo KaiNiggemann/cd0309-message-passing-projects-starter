@@ -31,9 +31,10 @@ class PersonsResource(Resource):
 
     @responds(schema=PersonSchema, many=True)
     def get(self) -> List[Person]:
-        persons = requests.get("udaconnect-data-api.default.svc.cluster.local:30002/api/persons")
+        r = requests.get("udaconnect-data-api.default.svc.cluster.local:30002/api/persons")
+        #persons: List[Person] = {person.id: person for person in r.json()}
         #persons: List[Person] = PersonService.retrieve_all()
-        return persons.text
+        return r.json()
 
 
 @api.route("/persons/<person_id>/connection")
