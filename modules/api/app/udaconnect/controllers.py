@@ -34,7 +34,7 @@ class PersonsResource(Resource):
     def get(self) -> List[Person]:
         r = requests.get("http://udaconnect-data-api.default.svc.cluster.local:5001/api/persons")
         #persons: List[Person] = {person.id: person for person in r.json()}
-        rlist = json.loads(r.json())
+        rlist = r.json()
         persons = []
         for p in rlist:
             new_person = Person()
