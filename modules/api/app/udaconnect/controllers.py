@@ -22,7 +22,7 @@ api = Namespace("UdaConnect", description="Connections via geolocation.")  # noq
 
 @api.route("/persons")
 class PersonsResource(Resource):
-    @accepts(schema=PersonSchema)
+#    @accepts(schema=PersonSchema)
 #    @responds(schema=PersonSchema)
 #    def post(self) -> Person:
 #        payload = request.get_json()
