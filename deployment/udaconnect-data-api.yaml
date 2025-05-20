@@ -3,6 +3,19 @@ kind: Service
 metadata:
   labels:
     app: udaconnect-data-api
+  name: udaconnect-data-api
+spec:
+  ports:
+  - port: 5001
+    targetPort: 5001
+  selector:
+    app: udaconnect-data-api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: udaconnect-data-api
   name: udaconnect-data-api-grpc
 spec:
   ports:
@@ -16,7 +29,7 @@ kind: Service
 metadata:
   labels:
     service: udaconnect-data-api
-  name: udaconnect-data-api
+  name: udaconnect-data-api-np
 spec:
   ports:
   - name: "5001"
