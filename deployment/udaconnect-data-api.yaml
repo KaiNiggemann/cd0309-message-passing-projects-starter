@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: udaconnect-data-api
-  name: udaconnect-data-api-service
+  name: udaconnect-data-api
 spec:
   ports:
   - port: 5001
