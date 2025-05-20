@@ -31,7 +31,7 @@ class PersonsResource(Resource):
 
     @responds(schema=PersonSchema, many=True)
     def get(self) -> List[Person]:
-        r = requests.get("udaconnect-data-api.default.svc.cluster.local:5001/api/persons")
+        r = requests.get("udaconnect-data-api.default.svc.cluster.local:5000/api/persons")
         #persons: List[Person] = {person.id: person for person in r.json()}
         rlist = json.loads(r.json())
         persons = []
