@@ -33,8 +33,20 @@ class PersonsResource(Resource):
     def get(self) -> List[Person]:
         r = requests.get("udaconnect-data-api.default.svc.cluster.local:30002/api/persons")
         #persons: List[Person] = {person.id: person for person in r.json()}
+        rlist = json.loads(r.json())
+        persons = []
+        for p in rlist:
+            new_person = Person()
+            new_person.id = p["id"]
+            new_person.first_name = p["first_name"]
+            new_person.last_name = p["last_name"]
+            new_person.company_name = p["company_name"]
+            persons.append(new_person)   
+            
+        #persons = list(map(lambda x: Person(x[0], x[1], x[2], x[3]), rlist)
+
         #persons: List[Person] = PersonService.retrieve_all()
-        return r.json()
+        return persons
 
 
 @api.route("/persons/<person_id>/connection")
