@@ -24,13 +24,14 @@ Instead of Postman collection I used curl for simplicity (and because POSTMAN is
 * Testing of UDACONNECT APP API via APP
 * Testing of UDACONNECT DATA API via CURL (and db scripts optionally)
 * (Kafka Producer and Consumer are tested indirectly via POST requests)
-curl -X POST 'http://127.0.0.1:30002/api/persons' -H 'Content-Type: application/json' -d '{"first_name": "Kai", "last_name": "niggemann", "company_name": "telekom"}'
-curl -X GET 'http://127.0.0.1:30002/api/persons' -H 'accept: application/json'
-sh scripts/show_persons.sh <pod>
+  curl -X POST 'http://127.0.0.1:30002/api/persons' -H 'Content-Type: application/json' -d '{"first_name": "Kai", "last_name": "niggemann", "company_name": "telekom"}'
+  curl -X GET 'http://127.0.0.1:30002/api/persons' -H 'accept: application/json'
+  sh scripts/show_persons.sh <pod>
 
-curl -X POST 'http://127.0.0.1:30002/api/locations'  -H 'Content-Type: application/json' -d '{"person_id": 11, "longitude": "37.55363", "latitude": "-122.290883", "creation_time": "2020-08-15 10:37:06.000000"}'
-curl -X GET 'http://127.0.0.1:30002/api/locations/70' -H 'accept: application/json'
-sh scripts/show_locations.sh <pod>
+  curl -X POST 'http://127.0.0.1:30002/api/locations'  -H 'Content-Type: application/json' -d '{"person_id": 11, "longitude": "37.55363", "latitude": "-122.290883", "creation_time": "2020-08-15 10:37:06.000000"}'
+  curl -X GET 'http://127.0.0.1:30002/api/locations/70' -H 'accept: application/json'
+  sh scripts/show_locations.sh <pod>
+  
 -----------------------------------------
 
 ## Overview
