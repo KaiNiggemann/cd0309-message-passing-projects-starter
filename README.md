@@ -1,18 +1,18 @@
 # UdaConnect
 
-## Project Updates!!!!!
-# Architecture
+# Project Updates!!!!!
+## Architecture
 ![image](Project 2 Architecture.drawio.png)
 * Open API for UDACONNECT APP API: swagger-udaconnect-app-api.json
 * Open API for UDACONNECT DATA API: swagger-udaconnect-data-api.json
 
-# Installation
+## Installation
 1. Simply install all deployment files on kubernetes:
    `kubectl apply -f deployment/` - Set up environment variables for the pods
 2. Run `sh scripts/run_db_command.sh <POD_NAME>` - Seed your database against the `postgres` pod. (`kubectl get pods` will give you the `POD_NAME`)
    (Kafka installation is included)
 
-#Testing
+## Testing
 These pages should also load on your web browser:
 * `http://localhost:30001/` - OpenAPI Documentation for UDACONNECT APP API
 * `http://localhost:30001/api/` - Base path for UDACONNECT APP API
@@ -31,7 +31,7 @@ sh scripts/show_persons.sh <pod>
 curl -X POST 'http://127.0.0.1:30002/api/locations'  -H 'Content-Type: application/json' -d '{"person_id": 11, "longitude": "37.55363", "latitude": "-122.290883", "creation_time": "2020-08-15 10:37:06.000000"}'
 curl -X GET 'http://127.0.0.1:30002/api/locations/70' -H 'accept: application/json'
 sh scripts/show_locations.sh <pod>
-
+-----------------------------------------
 
 ## Overview
 ### Background
