@@ -1,4 +1,38 @@
 # UdaConnect
+
+## Project Updates!!!!!
+# Architecture
+![image](Project 2 Architecture.drawio.png)
+* Open API for UDACONNECT APP API: swagger-udaconnect-app-api.json
+* Open API for UDACONNECT DATA API: swagger-udaconnect-data-api.json
+
+# Installation
+1. Simply install all deployment files on kubernetes:
+   `kubectl apply -f deployment/` - Set up environment variables for the pods
+2. Run `sh scripts/run_db_command.sh <POD_NAME>` - Seed your database against the `postgres` pod. (`kubectl get pods` will give you the `POD_NAME`)
+   (Kafka installation is included)
+
+#Testing
+These pages should also load on your web browser:
+* `http://localhost:30001/` - OpenAPI Documentation for UDACONNECT APP API
+* `http://localhost:30001/api/` - Base path for UDACONNECT APP API
+* `http://localhost:30000/` - Frontend ReactJS Application
+* `http://localhost:30002/` - OpenAPI Documentation for UDACONNECT DATA API
+* `http://localhost:30002/api/` - Base path for UDACONNECT DATA API
+
+Instead of Postman collection I used curl for simplicity (and because POSTMAN is not free anymore):
+* Testing of UDACONNECT APP API via APP
+* Testing of UDACONNECT DATA API via CURL (and db scripts optionally)
+* (Kafka Producer and Consumer are tested indirectly via POST requests)
+curl -X POST 'http://127.0.0.1:30002/api/persons' -H 'Content-Type: application/json' -d '{"first_name": "Kai", "last_name": "niggemann", "company_name": "telekom"}'
+curl -X GET 'http://127.0.0.1:30002/api/persons' -H 'accept: application/json'
+sh scripts/show_persons.sh <pod>
+
+curl -X POST 'http://127.0.0.1:30002/api/locations'  -H 'Content-Type: application/json' -d '{"person_id": 11, "longitude": "37.55363", "latitude": "-122.290883", "creation_time": "2020-08-15 10:37:06.000000"}'
+curl -X GET 'http://127.0.0.1:30002/api/locations/70' -H 'accept: application/json'
+sh scripts/show_locations.sh <pod>
+
+
 ## Overview
 ### Background
 Conferences and conventions are hotspots for making connections. Professionals in attendance often share the same interests and can make valuable business and personal connections with one another. At the same time, these events draw a large crowd and it's often hard to make these connections in the midst of all of these events' excitement and energy. To help attendees make connections, we are building the infrastructure for a service that can inform attendees if they have attended the same booths and presentations at an event.
