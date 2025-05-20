@@ -1,0 +1,19 @@
+# Interface
+
+syntax = "proto3";
+message PersonRequestMessage {
+  int32 id = 1;
+}
+message PersonResponseMessage {
+  int32 id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  string company_name = 4;
+}
+service PersonService {
+    rpc Get(PersonRequestMessage) returns (PersonResponseMessage);
+}
+
+# Testing 
+When fetching the connections the contact data is added via gRPC call.
+So the interface is testable implicitly via APP use.
